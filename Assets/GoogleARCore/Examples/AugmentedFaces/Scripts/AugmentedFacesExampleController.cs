@@ -31,6 +31,11 @@ namespace GoogleARCore.Examples.AugmentedFaces
     public class AugmentedFacesExampleController : MonoBehaviour
     {
         /// <summary>
+        /// The ARCoreSession monobehavior that manages the ARCore session.
+        /// </summary>
+        public ARCoreSession ARSessionManager;
+
+        /// <summary>
         /// The game object that renders the face attachment on an Augmented Face.
         /// </summary>
         public GameObject FaceAttachment;
@@ -51,6 +56,14 @@ namespace GoogleARCore.Examples.AugmentedFaces
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
+
+            var config = ARSessionManager.SessionConfig;
+            if (config != null)
+            {
+                config.MatchCameraFramerate = false;
+            } else {
+                Debug.LogError("Failed to get SessionConfig from ARSessionManager");
+            }
         }
 
         /// <summary>
